@@ -1,0 +1,23 @@
+{
+  "name": "crypto_experiments",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node inspect index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vault-Protocol/crypto_experiments.git"
+  },
+  "author": "Alexey Chernikov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vault-Protocol/crypto_experiments/issues"
+  },
+  "homepage": "https://github.com/Vault-Protocol/crypto_experiments#readme",
+  "dependencies": {
+    "jsbn": "^1.1.0"
+  }
+}
