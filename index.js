@@ -1,6 +1,5 @@
 const jsbn = require("./jsbn")
 
-
 class RandomIntegerGenerator {
   constructor(seedByteArray) {
     this.prng = new jsbn.Arcfour();
@@ -16,20 +15,21 @@ class RandomIntegerGenerator {
 }
 
 class RandomPrimeGenerator {
-  constructor(seedByteArray) {
+  constructor(seedByteArray, nBytes) {
     this.rnd = new RandomIntegerGenerator(seedByteArray)
+    this.nBytes = nBytes
   }
 
   next() {
     let result = new jsbn.BigInteger([1]);
     while(!result.isProbablePrime()) {
-      result = this.rnd.next(128);
+      result = this.rnd.next(this.nBytes);
     }
     return result;
   }
 }
 
-primeGenerator = new RandomPrimeGenerator([23, 35, 63, 12])
+primeGenerator = new RandomPrimeGenerator([23, 35, 63, 12], 128)
 for (var i = 20; i >= 0; i--) {
   console.log(primeGenerator.next().toString())
   console.log("")
