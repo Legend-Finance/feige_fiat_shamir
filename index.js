@@ -1,16 +1,36 @@
 const jsbn = require("./jsbn")
 
 
-function generateRandomBigint(seedByteArray, nBytes) {
-  let x = new Array(nBytes)
-  let prng = new jsbn.Arcfour()
-  prng.init(seedByteArray)
-  for (var i = x.length - 1; i >= 0; i--) {
-    x[i] = prng.next()
+class RandomIntegerGenerator {
+  constructor(seedByteArray) {
+    this.prng = new jsbn.Arcfour();
+    this.prng.init(seedByteArray);
   }
-  return new jsbn.BigInteger(x)
+  next(nBytes) {
+    let x = new Array(nBytes);
+    for (var i = x.length - 1; i >= 0; i--) {
+      x[i] = this.prng.next();
+    }
+    return new jsbn.BigInteger(x);
+  }
 }
 
+class RandomPrimeGenerator {
+  constructor(seedByteArray) {
+    this.rnd = new RandomIntegerGenerator(seedByteArray)
+  }
 
-randomInt = generateRandomBigint([23, 35, 63, 12], 128)
-console.log(randomInt.toString())
+  next() {
+    let result = new jsbn.BigInteger([1]);
+    while(!result.isProbablePrime()) {
+      result = this.rnd.next(128);
+    }
+    return result;
+  }
+}
+
+primeGenerator = new RandomPrimeGenerator([23, 35, 63, 12])
+for (var i = 20; i >= 0; i--) {
+  console.log(primeGenerator.next().toString())
+  console.log("")
+}
