@@ -1,6 +1,5 @@
-const RandomIntegerGenerator = require("./random_integer_generator")
-const RandomPrimeGenerator = require("./random_prime_generator")
-
+BigIntegerGenerator = require("./big_integer_generator")
+BigPrimeGenerator = require("./big_prime_generator")
 
 class FfsProfiler {
   constructor() {
@@ -8,9 +7,9 @@ class FfsProfiler {
   }
 
   test() {
-    let primeGenerator = new RandomPrimeGenerator([23, 35, 63, 12], 128)
+    let primeGenerator = new BigPrimeGenerator([23, 35, 63, 12], 128)
     for (var i = 20; i >= 0; i--) {
-      console.log(primeGenerator.next().toString())
+      console.log(primeGenerator.nextBlum().toString())
       console.log("")
     }
   }
