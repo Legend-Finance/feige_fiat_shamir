@@ -1,9 +1,12 @@
-const BigPrimeGenerator = require("./big_prime_generator")
-const BigIntegerGenerator = require("./big_integer_generator")
+const BigPrimeGenerator = require("./big_prime_generator");
+const BigIntegerGenerator = require("./big_integer_generator");
+const jsbn = require("./jsbn");
+
+const two = new jsbn.BigInteger([2]);
 
 class Ffs {
   constructor(seedBytesArray, pqBytes, siBytes, k) {
-    if(length(seedBytesArray) < 2) throw "Must have at least 2 seed bytes";
+    if (seedBytesArray.length < 2) throw "Must have at least 2 seed bytes";
     this.k = k;
     let arrayMiddle = Math.floor(seedBytesArray.length/2);
     let pqSeed = seedBytesArray.slice(0, arrayMiddle);
@@ -23,7 +26,14 @@ class Ffs {
     while(S.length < this.k) {
       S.push(this.siGenerator.nextCoprime(this.p, this.q));
     }
+    this.S = S;
     return S;
+  }
+
+  computeV() {
+    if (this.S == undefined) throw "Choose S first";
+    this.V = this.S.map(si => si.modPowInt(two, this.n));
+    return this.V;
   }
 }
 

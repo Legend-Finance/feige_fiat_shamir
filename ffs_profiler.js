@@ -11,8 +11,10 @@ class FfsProfiler {
     let seedBytesArray, pqBytes, siBytes, k;
     [seedBytesArray, pqBytes, siBytes, k] = [[23, 35, 63, 12], 128, 4, 4];
     let ffs = new Ffs(seedBytesArray, pqBytes, siBytes, k);
-    ffs.chooseN();
-    ffs.chooseS();
+
+    let N = ffs.chooseN();
+    let S = ffs.chooseS();
+    let V = ffs.computeV();
   }
 
   makeManyPrimes() {
