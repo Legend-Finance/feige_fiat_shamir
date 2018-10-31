@@ -20,7 +20,7 @@ class BigPrimeGenerator {
   nextBlum() {
     let blum = null;
     let a = null;
-    let b = null
+    let b = null;
     do {
       a = this.next();
       b = this.next();

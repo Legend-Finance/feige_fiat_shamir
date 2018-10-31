@@ -2,7 +2,7 @@ const jsbn = require("./jsbn")
 
 class BigIntegerGenerator {
   constructor(seedByteArray, nBytes) {
-    this.nBytes = nBytes
+    this.nBytes = nBytes;
     this.prng = new jsbn.Arcfour();
     this.prng.init(seedByteArray);
   }
@@ -19,7 +19,7 @@ class BigIntegerGenerator {
     let result = null;
     do {
       result = this.next();
-    } while(!(result.mod(p) == 0 && result.mod(q) == 0));
+    } while(result.mod(p) == 0 || result.mod(q) == 0);
     return result;
   }
 }

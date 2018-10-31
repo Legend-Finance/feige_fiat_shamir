@@ -8,17 +8,18 @@ class FfsProfiler {
   }
 
   test() {
-    let seedBytesArray, nBytes, k;
-    [seedBytesArray, nBytes, k] = [[23, 35, 63, 12], 128, 4]
-    let ffs = new Ffs(seedBytesArray, nBytes, k);
+    let seedBytesArray, pqBytes, siBytes, k;
+    [seedBytesArray, pqBytes, siBytes, k] = [[23, 35, 63, 12], 128, 4, 4];
+    let ffs = new Ffs(seedBytesArray, pqBytes, siBytes, k);
     ffs.chooseN();
+    ffs.chooseS();
   }
 
   makeManyPrimes() {
-    let primeGenerator = new BigPrimeGenerator([23, 35, 63, 12], 128)
+    let primeGenerator = new BigPrimeGenerator([23, 35, 63, 12], 128);
     for (var i = 20; i >= 0; i--) {
-      console.log(primeGenerator.nextBlum().toString())
-      console.log("")
+      console.log(primeGenerator.nextBlum().toString());
+      console.log("");
     }
   }
 }

@@ -2,11 +2,12 @@ const BigPrimeGenerator = require("./big_prime_generator")
 const BigIntegerGenerator = require("./big_integer_generator")
 
 class Ffs {
-  constructor(seedBytesArray, nBytes, k) {
-    this.nBytes = nBytes;
+  constructor(seedBytesArray, pqBytes, siBytes, k) {
     this.k = k;
-    this.ints = new BigIntegerGenerator(seedBytesArray, nBytes);
-    this.primes = new BigPrimeGenerator(this.ints);
+    let pqSeed = seedBytesArray;
+    let siSeed = seedBytesArray;
+    this.siGenerator = new BigIntegerGenerator(siSeed, siBytes)
+    this.primes = new BigPrimeGenerator(new BigIntegerGenerator(pqSeed, pqBytes));
   }
 
   chooseN() {
@@ -15,16 +16,12 @@ class Ffs {
   }
 
   chooseS() {
-    throw "Choose N first" if (this.n == undefined);
+    if (this.n == undefined) throw "Choose N first";
     let S = [];
-    while(len(S) < this.k) {
-
+    while(S.length < this.k) {
+      S.push(this.siGenerator.nextCoprime(this.p, this.q))
     }
-  }
-
-  // private
-  chooseNextSi() {
-
+    return S;
   }
 }
 
