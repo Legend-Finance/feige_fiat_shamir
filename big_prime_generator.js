@@ -5,15 +5,14 @@ const three = new jsbn.BigInteger([3])
 const four = new jsbn.BigInteger([4])
 
 class BigPrimeGenerator {
-  constructor(seedByteArray, nBytes) {
-    this.rnd = new BigIntegerGenerator(seedByteArray)
-    this.nBytes = nBytes
+  constructor(rnd) {
+    this.rnd = rnd;
   }
 
   next() {
-    let result = null
+    let result = null;
     do {
-      result = this.rnd.next(this.nBytes);
+      result = this.rnd.next();
     } while(!result.isProbablePrime());
     return result;
   }
