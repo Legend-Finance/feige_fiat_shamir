@@ -15,6 +15,35 @@ class Ffs {
     this.primes = new BigPrimeGenerator(new BigIntegerGenerator(pqSeed, pqBytes));
   }
 
+  setup() {
+    this.chooseN();
+    this.chooseS();
+    this.computeV();
+  }
+
+  // Proof
+  initProof() {
+    let sign = this.siGenerator.randomSign();
+    let r = this.siGenerator.next();
+    let x = r.modPowInt(two, r).multiply(sign)
+    return [sign, r, x]
+  }
+
+  chooseA() {
+    let result =  new Uint8Array(this.k);
+    crypto.getRandomValues(result);
+    // TODO: do we need to make sure there is a minimum amount of non-zero values?
+    return result.map(a => a % 2)
+  }
+
+  computeY(r, S, A) {
+    // TODO: sexy select statement from S where A[i]!=0
+    for(let s in S) {
+
+    }
+  }
+
+  // private
   chooseN() {
     [this.p, this.q, this.n] = this.primes.nextBlum();
     return this.n;
@@ -35,6 +64,7 @@ class Ffs {
     this.V = this.S.map(si => si.modPowInt(two, this.n));
     return this.V;
   }
+
 }
 
 

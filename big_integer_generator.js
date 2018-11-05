@@ -15,6 +15,12 @@ class BigIntegerGenerator {
     return new jsbn.BigInteger(x);
   }
 
+  randomSign() {
+    // TODO: more efficient sign generation
+    debugger
+    return this.prng.next().signum();
+  }
+
   nextCoprime(p, q) {
     let result = null;
     do {
