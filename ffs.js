@@ -2,6 +2,8 @@ const BigPrimeGenerator = require("./big_prime_generator");
 const BigIntegerGenerator = require("./big_integer_generator");
 const jsbn = require("./jsbn");
 
+const crypto = require("crypto");
+
 const two = new jsbn.BigInteger([2]);
 
 class Ffs {
@@ -16,53 +18,68 @@ class Ffs {
   }
 
   setup() {
-    this.chooseN();
-    this.chooseS();
-    this.computeV();
+    let n = this.chooseN();
+    let S = this.chooseS(n);
+    let V = this.computeV(S, n);
+    return [n, S, V]
   }
 
   // Proof
-  initProof() {
+  initProof(n) {
+    // TODO: use a RNG instead
     let sign = this.siGenerator.randomSign();
     let r = this.siGenerator.next();
-    let x = r.modPowInt(two, r).multiply(sign)
+    let x = r.modPowInt(two, n).multiply(sign)
+
     return [sign, r, x]
   }
 
   chooseA() {
-    let result =  new Uint8Array(this.k);
-    crypto.getRandomValues(result);
     // TODO: do we need to make sure there is a minimum amount of non-zero values?
-    return result.map(a => a % 2)
+    return crypto.randomBytes(this.k).map(a => a % 2)
   }
 
-  computeY(r, S, A) {
+  computeY(r, S, A, n) {
     // TODO: sexy select statement from S where A[i]!=0
-    for(let s in S) {
+    let y  = r;
+    A.forEach((a, i) => {
+      if(a != 0) {
+        y = y.multiply(S[i]).mod(n);
+      }
+    });
 
-    }
+    return y;
+  }
+
+  checkY(y, n, x, A, V) {
+    let leftHand = y.modPowInt(two, n);
+    let rightHand = x;
+    A.forEach((a, i) => {
+      if(a != 0) {
+        rightHand = rightHand.multiply(V[i]).mod(n);
+      }
+    })
+    console.log(leftHand.toString(), rightHand.toString(), x.toString())
+    return leftHand.equals(rightHand);
   }
 
   // private
   chooseN() {
-    [this.p, this.q, this.n] = this.primes.nextBlum();
-    return this.n;
+    let p, q, n;
+    [p, q, n] = this.primes.nextBlum();
+    return n;
   }
 
-  chooseS() {
-    if (this.n == undefined) throw "Choose N first";
+  chooseS(n) {
     let S = [];
     while(S.length < this.k) {
-      S.push(this.siGenerator.nextCoprime(this.p, this.q));
+      S.push(this.siGenerator.nextCoprime(n));
     }
-    this.S = S;
     return S;
   }
 
-  computeV() {
-    if (this.S == undefined) throw "Choose S first";
-    this.V = this.S.map(si => si.modPowInt(two, this.n));
-    return this.V;
+  computeV(S, n) {
+    return S.map(si => si.modPowInt(two, n));
   }
 
 }

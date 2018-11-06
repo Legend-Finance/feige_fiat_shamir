@@ -1,5 +1,7 @@
 const jsbn = require("./jsbn")
 
+const two = new jsbn.BigInteger([2]);
+
 class BigIntegerGenerator {
   constructor(seedByteArray, nBytes) {
     this.nBytes = nBytes;
@@ -17,15 +19,14 @@ class BigIntegerGenerator {
 
   randomSign() {
     // TODO: more efficient sign generation
-    debugger
-    return this.prng.next().signum();
+    return new jsbn.BigInteger([this.next().signum()]);
   }
 
-  nextCoprime(p, q) {
+  nextCoprime(n) {
     let result = null;
     do {
       result = this.next();
-    } while(result.mod(p) == 0 || result.mod(q) == 0);
+    } while(result.mod(n) == 0);
     return result;
   }
 }
