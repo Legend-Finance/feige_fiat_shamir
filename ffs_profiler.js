@@ -20,7 +20,6 @@ class FfsProfiler {
     let A = ffs.chooseA();
     let y = ffs.computeY(r, S, A, n);
     let isCorrect = ffs.checkY(y, n, x, A, V);
-    console.log(isCorrect);
   }
 
   makeManyPrimes() {

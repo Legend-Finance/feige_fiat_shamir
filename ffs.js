@@ -59,7 +59,6 @@ class Ffs {
         rightHand = rightHand.multiply(V[i]).mod(n);
       }
     })
-    console.log(leftHand.toString(), rightHand.toString(), x.toString())
     return leftHand.equals(rightHand);
   }
 
