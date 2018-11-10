@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/Vault-Protocol/crypto_experiments#readme",
   "dependencies": {
-    "jsbn": "^1.1.0"
+    "jsbn": "^1.1.0",
+    "mocha-let": "^0.1.1"
   },
   "devDependencies": {
     "mocha": "^5.2.0"
