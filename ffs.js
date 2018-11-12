@@ -4,6 +4,7 @@ const jsbn = require("./jsbn");
 
 const crypto = require("crypto");
 
+const negOne = jsbn.BigInteger.ONE.negate()
 const two = new jsbn.BigInteger([2]);
 
 class Ffs {
@@ -28,7 +29,7 @@ class Ffs {
   initProof(n) {
     // TODO: use a RNG instead
     let sign = this.siGenerator.randomSign();
-    let r = this.siGenerator.next();
+    let r = this.siGenerator.next().abs();
     let x = r.modPowInt(two, n).multiply(sign)
 
     return [sign, r, x]
@@ -52,21 +53,25 @@ class Ffs {
   }
 
   checkY(y, n, x, A, V) {
-    let leftHand = y.modPowInt(two, n);
-    let rightHand = x;
+    if(x.equals(jsbn.BigInteger.ZERO)) return false;
+
+    let leftSide = y.modPowInt(two, n);
+    let product = jsbn.BigInteger.ONE;
     A.forEach((a, i) => {
       if(a != 0) {
-        rightHand = rightHand.multiply(V[i]).mod(n);
+        product = product.multiply(V[i]).mod(n);
       }
     })
-    return leftHand.equals(rightHand);
+    let rightSide1 = x.negate().multiply(product).mod(n)
+    let rightSide2 = x.multiply(product).mod(n)
+    return leftSide.equals(rightSide1) || leftSide.equals(rightSide2)
   }
 
   // private
   chooseN() {
     let p, q, n;
     [p, q, n] = this.primes.nextBlum();
-    return n;
+    return n.abs();
   }
 
   chooseS(n) {

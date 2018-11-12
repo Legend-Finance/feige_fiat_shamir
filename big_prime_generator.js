@@ -32,6 +32,8 @@ class BigPrimeGenerator {
   // Private
   isBlumPrime(bigInteger) {
     let sansRemainder = bigInteger.subtract(four);
+    // TODO: must be (4g+3) and gcd(g,3)==1
+    // http://www.ijcir.mak.ac.ug/volume4-number1/article2.pdf
     return sansRemainder.mod(three) == 0;
   }
 }

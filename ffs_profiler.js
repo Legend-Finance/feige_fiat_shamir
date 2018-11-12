@@ -9,7 +9,7 @@ class FfsProfiler {
 
   test() {
     let seedBytesArray, pqBytes, siBytes, k;
-    [seedBytesArray, pqBytes, siBytes, k] = [[23, 35, 63, 12], 128, 4, 4];
+    [seedBytesArray, pqBytes, siBytes, k] = [[23, 32, 222, 121], 128, 4, 4];
     let ffs = new Ffs(seedBytesArray, pqBytes, siBytes, k);
 
     let n, S, V;
@@ -20,6 +20,24 @@ class FfsProfiler {
     let A = ffs.chooseA();
     let y = ffs.computeY(r, S, A, n);
     let isCorrect = ffs.checkY(y, n, x, A, V);
+
+
+    let printall = (n, a, p) => {
+      let s = ""
+      a.map((x) => s += " " + x)
+      p(n + " " +s)
+    }
+    let printbig = (b) => console.log(b.toString());
+
+    printall("S", S, printbig)
+    printall("V", V, printbig)
+    console.log("n", n.toString())
+    console.log("sign", sign.toString())
+    console.log("r", r.toString())
+    console.log("x", x.toString())
+    printall("A", A, console.log)
+    console.log("y", y.toString())
+    console.log(isCorrect)
   }
 
   makeManyPrimes() {

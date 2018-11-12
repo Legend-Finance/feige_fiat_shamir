@@ -8,7 +8,7 @@ describe('Ffs', function() {
   // [seedBytesArray, pqBytes, siBytes, k] = [[23, 35, 63, 12], 128, 4, 4];
 
 
-  const seedBytesArray = [61, 32, 222, 12]
+  const seedBytesArray = [61, 32, 222, 121]
   const pqBytes = 128;
   const siBytes = 4;
   const k = 4;
