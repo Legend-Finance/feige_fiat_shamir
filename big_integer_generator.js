@@ -10,11 +10,15 @@ class BigIntegerGenerator {
   }
 
   next() {
+    return new jsbn.BigInteger(this.nextAsBytes());
+  }
+
+  nextAsBytes() {
     let x = new Array(this.nBytes);
     for (var i = x.length - 1; i >= 0; i--) {
       x[i] = this.prng.next();
     }
-    return new jsbn.BigInteger(x);
+    return x;
   }
 
   randomSign() {
