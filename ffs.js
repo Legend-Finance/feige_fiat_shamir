@@ -29,8 +29,9 @@ class Ffs {
   initProof(n) {
     // TODO: use a RNG instead
     let sign = this.siGenerator.randomSign();
-    let r = this.siGenerator.next().abs();
-    let x = r.modPowInt(two, n).multiply(sign)
+    // TODO: ensure r is not 0
+    let r = this.siGenerator.next();
+    let x = r.modPowInt(two, n).multiply(sign).mod(n);
 
     return [sign, r, x]
   }
