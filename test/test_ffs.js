@@ -7,7 +7,7 @@ const assert = require('assert');
 context('FFS', function() {
   it('runs correctly on a large set of inputs.', function() {
     let testComponents = function(seedBytesArray, pqBytes, siBytes, k) {
-      describe('Components', function() {
+      context(`Params: (Seed: [${seedBytesArray.toString()}], pqBytes: ${pqBytes}, siBytes ${siBytes}, k: ${k}`,  function() {
         set('ffs', function() { return new Ffs(seedBytesArray, pqBytes, siBytes, k)})
         set('ffsParams', function() {
           let n, S, V;
