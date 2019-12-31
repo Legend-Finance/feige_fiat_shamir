@@ -1,7 +1,7 @@
 # feige_fiat_shamir
 The Legend Finance Nodejs implementation of the Feige-Fiat-Shamir (FFS) zero-knowledge verification protocol.
 
-This npm package is used as part of the Legend Finance application. A detailed readme is coming soon. Meanwhile, here is some background on its usage (mode detail in https://github.com/Legend-Finance/smart-contracts):
+This npm package is used as part of the Legend Finance application. A detailed readme is coming soon. Meanwhile, here is some background on its usage (more detail in https://github.com/Legend-Finance/smart-contracts):
 
 ##### Feige-Fiat-Shamir (FFS) Withdrawals
 
@@ -18,7 +18,7 @@ FFS withdrawals are done in 3 steps:
 ```javascript
 beginAuthentication(address depositEndpoint, uint256 x) → uint256 (public)
 ```
-This function starts the FFS authentication process and sets up the smart contract to anticipate an FFS zero-knowledge proof. `ZkAccountLedger` records `x` (calculated off-chain using the  Legend FFS Library), current block number, and the public key for the sender of the withdrawal transaction. The public key is stored to prevent bad actors from supplying an incorrect proof, in an attempt to disrupt the withdrawal process. 
+This function starts the FFS authentication process and sets up the smart contract to anticipate an FFS zero-knowledge proof. `ZkAccountLedger` records `x` (calculated off-chain using the  Legend FFS Library), current block number, and the public key for the sender of the withdrawal transaction. The public key is stored to prevent bad actors from supplying an incorrect proof, in an attempt to disrupt the withdrawal process.
 ```javascript
 createAuthParams(address depositEndpoint, uint256 authIndex) → uint32[] params (public)
 ```
