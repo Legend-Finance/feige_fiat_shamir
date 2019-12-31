@@ -1,2 +1,4 @@
 # feige_fiat_shamir
-Node implementation of the Feige-Fiat-Shamir zero knowledge verification protocol
+Node implementation of the Feige-Fiat-Shamir zero-knowledge verification protocol
+
+Detailed readme coming soon.
