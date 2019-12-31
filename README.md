@@ -1,4 +1,4 @@
 # feige_fiat_shamir
-Node implementation of the Feige-Fiat-Shamir zero-knowledge verification protocol
+The Legend Finance Nodejs implementation of the Feige-Fiat-Shamir (FFS) zero-knowledge verification protocol.
 
 Detailed readme coming soon.
