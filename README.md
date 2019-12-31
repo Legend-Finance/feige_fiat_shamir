@@ -29,4 +29,4 @@ withdrawErc20(uint256 y, address depositEndpoint, address asset, uint256 amount,
 
 withdrawEth(uint256 y, address depositEndpoint, uint256 amount, uint256 authIndex) → uint256 (public)
 ```
-These functions perform FFS based withdrawal, sending the specified assets back to the user’s `redeemAddress`. The proof `y` needs to be generated off-chain using the [Legend FFS library](https://www.npmjs.com/package/@cryptolegend/legend_feige_fiat_shamir).
+These functions perform FFS based withdrawal, sending the specified assets back to the user’s `redeemAddress`. The proof `y` needs to be generated off-chain using this library.
